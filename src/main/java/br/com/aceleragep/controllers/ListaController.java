@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.aceleragep.converts.ItemConvert;
 import br.com.aceleragep.converts.ListaConvert;
 import br.com.aceleragep.dtos.inputs.ListaInput;
+import br.com.aceleragep.dtos.outputs.ItemOutput;
 import br.com.aceleragep.dtos.outputs.ListaOutput;
+import br.com.aceleragep.entities.ItemEntity;
 import br.com.aceleragep.entities.ListaEntity;
+import br.com.aceleragep.services.ItemService;
 import br.com.aceleragep.services.ListaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,6 +40,14 @@ public class ListaController {
 
 	@Autowired
 	private ListaConvert listaConvert;
+	
+////	@Operation(summary = "Cria lista",description = "Cria a lista")
+//	@Operation(summary = "Lista a lista por id",description = "Lista a lista por id existente")
+//	@GetMapping("/{id}")
+//	public ListaOutput buscaAutorPorId(@PathVariable Long id) {
+//		ListaEntity listaEntity = listaService.buscaPeloId(id);
+//		return listaConvert.entityToOutput(listaEntity);
+//	}
 
 	@Operation(summary = "Cria lista",description = "Cria a lista")
 	@PostMapping
@@ -45,7 +57,10 @@ public class ListaController {
 		ListaEntity listaCriada = listaService.cria(listaEntity);
 		return listaConvert.entityToOutput(listaCriada);
 	}
-	
+//	public ItemOutput entityToOutput(ItemEntity itemEntity) {
+//		return model.map(itemEntity, ItemOutput.class);
+//	}
+//	
 	@Operation(summary = "Altera lista",description = "Altera a lista")
 	@PutMapping("/{id}")
 	public ListaOutput altera(@PathVariable Long id, @Valid @RequestBody ListaInput lista) {
@@ -77,6 +92,5 @@ public class ListaController {
 		List<ListaEntity> listaTodos = listaService.listaTodos();
 		return listaConvert.entityToOutput(listaTodos);
 	}
-	
 	
 }
